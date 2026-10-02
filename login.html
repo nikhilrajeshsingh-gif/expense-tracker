@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            color: #fff;
+            background: #0b1220;
+        }
+
+        /* Background */
+
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 10% 10%, #172d56, transparent 50%),
+                radial-gradient(ellipse at 90% 90%, #282052, transparent 50%),
+                #0b1220;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(85px);
+            opacity: 0.32;
+            pointer-events: none;
+            animation: float 9s ease-in-out infinite alternate;
+        }
+
+        .orb1 {
+            width: 300px;
+            height: 300px;
+            background: #2563eb;
+            top: 5%;
+            left: 5%;
+        }
+
+        .orb2 {
+            width: 350px;
+            height: 350px;
+            background: #7c3aed;
+            right: 5%;
+            bottom: 0;
+            animation-delay: 2s;
+        }
+
+        .orb3 {
+            width: 180px;
+            height: 180px;
+            background: #0891b2;
+            top: 40%;
+            left: 45%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+            to {
+                transform: translate(35px, -25px) scale(1.15);
+            }
+        }
+
+        /* Card */
+
+        .auth-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 42px 38px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 22px;
+            background: rgba(20,30,52,0.88);
+            backdrop-filter: blur(22px);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 1;
+            animation: appear 0.8s ease both;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo */
+
+        .logo {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 16px;
+            display: grid;
+            place-items: center;
+            font-size: 28px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            box-shadow: 0 8px 25px rgba(59,130,246,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 34px;
+        }
+
+        /* Forms */
+
+        h2 {
+            text-align: center;
+            font-size: 23px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 27px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #dbeafe;
+            margin-bottom: 9px;
+        }
+
+        input {
+            width: 100%;
+            height: 49px;
+            padding: 0 14px;
+            margin-bottom: 21px;
+            background: rgba(15,23,42,0.8);
+            border: 1px solid #34435f;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+        input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+
+        /* Password */
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 65px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 13px;
+            top: 15px;
+            border: none;
+            background: none;
+            color: #60a5fa;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+
+        .auth-button {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(100deg, #2563eb, #4f46e5);
+            color: #fff;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 22px rgba(37,99,235,0.22);
+            transition: 0.3s ease;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(37,99,235,0.4);
+        }
+
+        .auth-button:active {
+            transform: scale(0.98);
+        }
+
+        .arrow {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .auth-button:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        /* Messages */
+
+        .message {
+            min-height: 16px;
+            font-size: 12px;
+            margin: -8px 0 12px;
+            text-align: center;
+        }
+
+        .error {
+            color: #f87171;
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        /* Switch */
+
+        .switch-text {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 24px;
+        }
+
+        .switch-text span {
+            color: #60a5fa;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+
+        .switch-text span:hover {
+            color: #93c5fd;
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 10px;
+            color: #64748b;
+            margin-top: 30px;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 16px;
+            }
+
+            .auth-card {
+                padding: 32px 23px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+
+        <div class="auth-card">
+
+            <div class="logo">💰</div>
+
+            <h1>Expense Tracker</h1>
+
+            <p class="subtitle">
+                Manage your money smartly
+            </p>
+
+            <!-- LOGIN FORM -->
+
+            <div id="loginForm">
+
+                <h2>Welcome Back</h2>
+
+                <p class="form-subtitle">
+                    Login to continue
+                </p>
+
+                <label for="loginUsername">Username</label>
+
+                <input
+                    type="text"
+                    id="loginUsername"
+                    placeholder="Enter username"
+                    autocomplete="username"
+                >
+
+                <label for="loginPassword">Password</label>
+
+                <div class="password-box">
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="toggleVisibility('loginPassword', this)">
+                        Show
+                    </button>
+                </div>
+
+                <p id="loginMessage" class="message"
+                   aria-live="polite"></p>
+
+                <button class="auth-button" onclick="loginUser()">
+                    Login <span class="arrow">→</span>
+                </button>
+
+                <p class="switch-text">
+                    Don't have an account?
+                    <span onclick="showSignup()">Sign Up</span>
+                </p>
+
+            </div>
+
+            <!-- SIGNUP FORM -->
+
+            <div id="signupForm" style="display:none;">
+
+                <h2>Create Account</h2>
+
+                <p class="form-subtitle">
+                    Create your account
+                </p>
+
+                <label for="signupUsername">Username</label>
+
+                <input
+                    type="text"
+                    id="signupUsername"
+                    placeholder="Create username"
+                    autocomplete="username"
+                >
+
+                <label for="signupPassword">Password</label>
+
+                <div class="password-box">
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        placeholder="Create password"
+                        autocomplete="new-password"
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="toggleVisibility('signupPassword', this)">
+                        Show
+                    </button>
+                </div>
+
+                <label for="confirmPassword">Confirm Password</label>
+
+                <div class="password-box">
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm password"
+                        autocomplete="new-password"
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="toggleVisibility('confirmPassword', this)">
+                        Show
+                    </button>
+                </div>
+
+                <p id="signupMessage" class="message"
+                   aria-live="polite"></p>
+
+                <button class="auth-button" onclick="signupUser()">
+                    Create Account <span class="arrow">→</span>
+                </button>
+
+                <p class="switch-text">
+                    Already have an account?
+                    <span onclick="showLogin()">Login</span>
+                </p>
+
+            </div>
+
+            <div class="footer">
+                Personal Finance Management
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        // SHOW SIGNUP
+
+        function showSignup() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("signupForm").style.display = "block";
+
+            clearMessages();
+        }
+
+        // SHOW LOGIN
+
+        function showLogin() {
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+
+            clearMessages();
+        }
+
+        // CLEAR MESSAGES
+
+        function clearMessages() {
+            document.getElementById("loginMessage").innerText = "";
+            document.getElementById("signupMessage").innerText = "";
+        }
+
+        // SHOW / HIDE PASSWORD
+
+        function toggleVisibility(id, button) {
+            const input = document.getElementById(id);
+
+            if (input.type === "password") {
+                input.type = "text";
+                button.innerText = "Hide";
+            } else {
+                input.type = "password";
+                button.innerText = "Show";
+            }
+        }
+
+        // SIGNUP
+
+        function signupUser() {
+            const username = document.getElementById("signupUsername").value.trim();
+            const password = document.getElementById("signupPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const message = document.getElementById("signupMessage");
+
+            message.className = "message";
+
+            if (username === "" || password === "" || confirmPassword === "") {
+                message.innerText = "Please fill all fields.";
+                message.classList.add("error");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                message.innerText = "Passwords do not match.";
+                message.classList.add("error");
+                return;
+            }
+
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+
+            message.innerText = "Account created successfully!";
+            message.classList.add("success");
+
+            setTimeout(function() {
+                showLogin();
+                document.getElementById("loginUsername").value = username;
+            }, 1000);
+        }
+
+        // LOGIN
+
+        function loginUser() {
+            const username = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            const savedUsername = localStorage.getItem("username");
+            const savedPassword = localStorage.getItem("password");
+
+            const message = document.getElementById("loginMessage");
+            message.className = "message";
+
+            if (username === "" || password === "") {
+                message.innerText = "Please enter username and password.";
+                message.classList.add("error");
+                return;
+            }
+
+            // DEFAULT LOGIN
+
+            if (username === "admin" && password === "1234") {
+                localStorage.setItem("loggedIn", "true");
+                window.location.href = "index.html";
+                return;
+            }
+
+            // REGISTERED USER LOGIN
+
+            if (username === savedUsername && password === savedPassword) {
+                localStorage.setItem("loggedIn", "true");
+                window.location.href = "index.html";
+            } else {
+                message.innerText = "Invalid username or password.";
+                message.classList.add("error");
+            }
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Expense Tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <div class="welcome">
+
+            <div class="avatar">
+                💰
+            </div>
+
+            <div>
+
+                <h1>
+                    Hi, Welcome! 👋
+                </h1>
+
+                <p>
+                    Manage your money smartly
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-buttons">
+
+            <button
+                class="add-btn"
+                onclick="
+                    document
+                    .getElementById('amount')
+                    .focus()
+                "
+            >
+                + Add Transaction
+            </button>
+
+
+            <button
+                class="logout-btn"
+                onclick="logoutUser()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         ADD TRANSACTION
+    ========================== -->
+
+    <section class="add-transaction">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Add Transaction
+                </h2>
+
+                <p>
+                    Record your income or expense
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form
+            id="transactionForm"
+            onsubmit="addTransaction(event)"
+            autocomplete="off"
+        >
+
+            <!-- TYPE -->
+
+            <div>
+
+                <label for="type">
+                    Transaction Type
+                </label>
+
+                <select id="type">
+
+                    <option value="income">
+                        Income
+                    </option>
+
+                    <option value="expense">
+                        Expense
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- AMOUNT -->
+
+            <div>
+
+                <label for="amount">
+                    Amount
+                </label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    placeholder="Enter amount"
+                    min="1"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- CATEGORY -->
+
+            <div>
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select id="category">
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Food">
+                        Food
+                    </option>
+
+                    <option value="Travel">
+                        Travel
+                    </option>
+
+                    <option value="Shopping">
+                        Shopping
+                    </option>
+
+                    <option value="Education">
+                        Education
+                    </option>
+
+                    <option value="Health">
+                        Health
+                    </option>
+
+                    <option value="Bills">
+                        Bills
+                    </option>
+
+                    <option value="Salary">
+                        Salary
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- NOTE -->
+
+            <div>
+
+                <label for="note">
+                    Note
+                </label>
+
+                <input
+                    type="text"
+                    id="note"
+                    placeholder="Enter note"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="transaction-buttons">
+
+                <button
+                    type="submit"
+                    class="save-transaction-btn"
+                >
+                    Save Transaction
+                </button>
+
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="clearTransactionForm()"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+
+    <!-- =========================
+         SUMMARY
+    ========================== -->
+
+    <section class="summary">
+
+        <div class="card">
+
+            <div class="card-icon">
+                💰
+            </div>
+
+            <p>
+                Total Balance
+            </p>
+
+            <h2 id="balance">
+                ₹0
+            </h2>
+
+        </div>
+
+
+        <div class="card income-card">
+
+            <div class="card-icon">
+                📈
+            </div>
+
+            <p>
+                Total Income
+            </p>
+
+            <h2 id="income">
+                ₹0
+            </h2>
+
+        </div>
+
+
+        <div class="card expense-card">
+
+            <div class="card-icon">
+                📉
+            </div>
+
+            <p>
+                Total Expense
+            </p>
+
+            <h2 id="expense">
+                ₹0
+            </h2>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         BUDGET
+    ========================== -->
+
+    <section class="budget-section">
+
+        <div class="budget-card">
+
+            <div class="budget-top">
+
+                <div>
+
+                    <p>
+                        Monthly Budget
+                    </p>
+
+                    <h2 id="budgetAmount">
+                        ₹0
+                    </h2>
+
+                </div>
+
+
+                <div class="budget-icon">
+                    🎯
+                </div>
+
+            </div>
+
+
+            <div class="budget-info">
+
+                <span>
+                    Spent:
+                    <b id="spentAmount">
+                        ₹0
+                    </b>
+                </span>
+
+
+                <span>
+                    Remaining:
+                    <b id="remainingAmount">
+                        ₹0
+                    </b>
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    id="budgetProgress"
+                ></div>
+
+            </div>
+
+
+            <button
+                class="budget-btn"
+                onclick="showBudget()"
+            >
+                Set Budget
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         EXPENSE CHART
+    ========================== -->
+
+    <section class="chart-section">
+
+        <div class="chart-box">
+
+            <h2>
+                Expense Overview
+            </h2>
+
+            <p class="chart-subtitle">
+                See where your money is going
+            </p>
+
+
+            <canvas
+                id="expenseChart"
+            ></canvas>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         RECENT TRANSACTIONS
+    ========================== -->
+
+    <section class="transactions">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Recent Transactions
+                </h2>
+
+                <p>
+                    Your latest income and expenses
+                </p>
+
+            </div>
+
+
+            <button
+                onclick="showAll()"
+            >
+                View All
+            </button>
+
+        </div>
+
+
+
+        <!-- SEARCH + FILTER -->
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:1fr 185px;
+                gap:10px;
+                margin-bottom:15px;
+            "
+        >
+
+            <!-- SEARCH -->
+
+            <input
+                type="text"
+                id="searchTransaction"
+                placeholder="🔎 Search transactions..."
+                oninput="filterTransactions()"
+                autocomplete="off"
+                style="
+                    width:100%;
+                    height:44px;
+                    padding:0 13px;
+                    border:1px solid #dfe5e1;
+                    border-radius:11px;
+                    outline:none;
+                    font-size:14px;
+                "
+            >
+
+
+            <!-- FILTER -->
+
+            <select
+                id="filterType"
+                onchange="filterTransactions()"
+                style="
+                    width:100%;
+                    height:44px;
+                    padding:0 12px;
+                    border:1px solid #dfe5e1;
+                    border-radius:11px;
+                    outline:none;
+                    font-size:14px;
+                    background:white;
+                "
+            >
+
+                <option value="all">
+                    All Transactions
+                </option>
+
+                <option value="income">
+                    Income
+                </option>
+
+                <option value="expense">
+                    Expense
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- TRANSACTION LIST -->
+
+        <div
+            id="transactionList"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =========================
+         QUICK ACTIONS
+    ========================== -->
+
+    <section class="quick-actions">
+
+        <button
+            class="income-action"
+            onclick="selectIncome()"
+        >
+            💰 Add Income
+        </button>
+
+
+        <button
+            class="expense-action"
+            onclick="selectExpense()"
+        >
+            💸 Add Expense
+        </button>
+
+
+        <button
+            class="budget-action"
+            onclick="showBudget()"
+        >
+            🎯 Set Budget
+        </button>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script src="script.js"></script>
+<!-- DELETE CONFIRMATION POPUP -->
+
+<div id="deleteModal" class="delete-modal">
+
+    <div class="delete-box">
+
+        <div class="delete-icon">
+            🗑️
+        </div>
+
+        <h2>
+            Delete Transaction?
+        </h2>
+
+        <p>
+            Are you sure you want to delete this transaction?
+        </p>
+
+        <div class="delete-buttons">
+
+            <button
+                class="delete-cancel-btn"
+                onclick="closeDeleteModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="delete-confirm-btn"
+                onclick="confirmDelete()"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+
+</html>
