@@ -1,3 +1,7 @@
+// LOGIN CHECK
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+}
 let transactions =
     JSON.parse(localStorage.getItem("transactions")) || [];
 
